@@ -7,6 +7,13 @@ Config = {}
 Config.Senddata = false
 
 --[[
+    In welchen interval soll geprüft werden ob ein Spieler dazu kam?
+
+    minimum = 15
+]]
+Config.Synctimer = 15
+
+--[[
     Setze das auf True um die vCAD-Server Antworten in eurer Server Console zu sehen.
 ]]
 Config.Debug = true
@@ -34,18 +41,8 @@ Config.Computer = 'all'
 Config.Sync_HairColor = true
 
 --[[
-    Wollt Ihr das die Aktuellen Haare in der Akte eingetragen wird, wenn der Spieler auf dem Server joint?
+    Wollt Ihr das die Aktuellen Augenfarbe in der Akte eingetragen wird, wenn der Spieler auf dem Server joint?
     Deaktiviert: false
     Aktivieren: true
 ]]
 Config.Sync_EyeColor = true
-
---[[
-    Hier müsst Ihr selber die Funktion bauen, da jedes MedicSystem
-    unterschiedlich Funktioniert.
-
-    Diese Funktion wird nur für MedicNet genutzt. Ist aber keine Pflichangabe.
-]]
-function GetBlood(SpielerID)
-    return ""
-end

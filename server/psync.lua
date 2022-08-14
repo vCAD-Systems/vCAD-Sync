@@ -64,7 +64,7 @@ AddEventHandler('vCAD-Sync:pload', function(eyecolor, haircolor)
     local name, gender, size, dob = nil
 
     if xPlayer == nil then
-        print("xPlayer ist nil...")
+        print("vCAD: xPlayer ist nil...")
         return
     end
 
@@ -90,7 +90,7 @@ AddEventHandler('vCAD-Sync:pload', function(eyecolor, haircolor)
         senddata["size"] = tostring(size)
         senddata["dateofbirth"] = dob
 
-        if PhoneNumber ~= nil then
+        if PhoneNumber[identifier] ~= nil then
             senddata["phone"] = tostring(PhoneNumber)
         end
         
@@ -100,41 +100,43 @@ AddEventHandler('vCAD-Sync:pload', function(eyecolor, haircolor)
         if Config.Sync_HairColor then
             senddata["haircolor"] = GetHairColor(haircolor)
         end
-        if Config.Sync_BloodGroup and BloodGroup ~= nil then
+        if BloodGroup[identifier] ~= nil then
             senddata["blood"] = BloodGroup[identifier]
         end
         HttpRequest(senddata)
     else
         for k, v in pairs(Config.Computer) do
             local senddata = {}
-        senddata["computer"] = 'all'
-        senddata["unique"] = identifier
-        senddata["name"] = name
-        senddata["aliases"] = aliases
-        senddata["gender"] = gender
-        senddata["size"] = tostring(size)
-        senddata["dateofbirth"] = dob
+            senddata["computer"] = v
+            senddata["unique"] = identifier
+            senddata["name"] = name
+            senddata["aliases"] = aliases
+            senddata["gender"] = gender
+            senddata["size"] = tostring(size)
+            senddata["dateofbirth"] = dob
 
-        if PhoneNumber ~= nil then
-            senddata["phone"] = tostring(PhoneNumber)
-        end
-        
-        if Config.Sync_EyeColor then
-            senddata["eyecolor"] = GetEyeColor(eyecolor)
-        end
-        if Config.Sync_HairColor then
-            senddata["haircolor"] = GetHairColor(haircolor)
-        end
-        if Config.Sync_BloodGroup and BloodGroup ~= nil then
-            senddata["blood"] = BloodGroup[identifier]
-        end
-            HttpRequest(senddata)
+            if PhoneNumber[identifier] ~= nil then
+                senddata["phone"] = tostring(PhoneNumber)
+            end
+            
+            if Config.Sync_EyeColor then
+                senddata["eyecolor"] = GetEyeColor(eyecolor)
+            end
+            if Config.Sync_HairColor then
+                senddata["haircolor"] = GetHairColor(haircolor)
+            end
+            if BloodGroup[identifier] ~= nil then
+                senddata["blood"] = BloodGroup[identifier]
+            end
+                HttpRequest(senddata)
         end
     end
 end)
 
 function HttpRequest(senddata)
-    print(json.encode(senddata))
+    if Config.Debug then
+        print(json.encode(senddata))
+    end
     if Config.Senddata then
         PerformHttpRequest("https://api.vcad.li/files/addfile?json_file=1", function (errorCode, resultData, resultHeaders)
             if Config.Debug then

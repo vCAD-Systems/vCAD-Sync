@@ -9,6 +9,7 @@ end)
 
 RegisterNetEvent('esx:PlayerLoaded')
 AddEventHandler('esx:PlayerLoaded', function(xPlayer)
+	Wait(15 * 60000)
 	local ped = PlayerPedId()
 	local eyecolor = GetPedEyeColor(ped)
 	local haircolor = GetPedHairColor(ped)
@@ -23,3 +24,4 @@ RegisterCommand('vCAD-Sync',function(source, args)
 
 	TriggerServerEvent('vCAD-Sync:pload', eyecolor, haircolor)
 end, false)
+
