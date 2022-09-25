@@ -1,8 +1,3 @@
-Config.Vehicle = {
-    Activated = true,
-
-    HU_spalte = nil
-}--
 Config.VehicleColor = {
 
     ['0'] =	"Metallic Black",		
