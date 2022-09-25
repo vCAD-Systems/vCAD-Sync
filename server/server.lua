@@ -72,8 +72,10 @@ AddEventHandler('vCAD-Sync:InsertConfigVehicle', function(vehhash, type, name)
     for k, v in pairs(Config.Admins) do
         if v.identifier == ident then
             AddVehicleToConf(vehhash, type, name, v.owner, ident)
+            return
         end
     end
+    TriggerClientEvent('esx:showNotification', source, "Du hast keine Rechte für diese Aktion!")
 end)
 
 function AddVehicleToConf(vehhash, type, name, owner, ident)
@@ -96,5 +98,5 @@ function AddVehicleToConf(vehhash, type, name, owner, ident)
     file:write("\n}")
     file:close()
 
-
+    TriggerClientEvent('esx:showNotification', source, name.." Wurde in der Config hinzugefügt.")
 end

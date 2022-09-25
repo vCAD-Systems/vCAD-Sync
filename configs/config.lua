@@ -59,7 +59,16 @@ Config.Vehicle = {
 
     HU_spalte = nil
 }
+--[[
+    Ändern Sie den Befehl nach Belieben
+    Config.Command = nil | Deaktiviert
+]]
+Config.Command = "vCAD-Car" -- Ändern Sie den Befehl nach Belieben
 
+--[[
+    User rechte für den Command
+    Trage hier die User ein die Rechte haben deine Config Fahrzeuge hinzuzufügen.
+]]
 Config.Admins = {
     {
         identifier = "",

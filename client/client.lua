@@ -17,27 +17,29 @@ AddEventHandler('esx:PlayerLoaded', function(xPlayer)
 	TriggerServerEvent('vCAD-Sync:pload', eyecolor, haircolor)
 end)
 
-RegisterCommand('vCAD-Car',function(source, args)
-	local ped = PlayerPedId()
-	local veh = GetVehiclePedIsIn(ped)
+if Config.Command ~= nil or Config.Command ~= 'nil' then
+	RegisterCommand(Config.Command,function(source, args)
+		local ped = PlayerPedId()
+		local veh = GetVehiclePedIsIn(ped)
 
-	if veh == 0 or veh == nil then
-		return
-	end
+		if veh == 0 or veh == nil then
+			return
+		end
 
-    vehhash = GetEntityModel(veh)
+		vehhash = GetEntityModel(veh)
 
-    local type = CreateDialog("Gib den Fahrzeug Typ an")
-    local name = CreateDialog("Gib den Fahrzeug Label an")
+		local type = CreateDialog("Gib den Fahrzeug Typ an")
+		local name = CreateDialog("Gib den Fahrzeug Label an")
 
-	if tostring(type) == nil or tostring(type) == "" then
-		return
-	end
+		if tostring(type) == nil or tostring(type) == "" then
+			return
+		end
 
-	if tostring(name) == nil or tostring(name) == "" then
-		return
-	end
+		if tostring(name) == nil or tostring(name) == "" then
+			return
+		end
 
-    TriggerServerEvent('vCAD-Sync:InsertConfigVehicle', vehhash, type, name)
+		TriggerServerEvent('vCAD-Sync:InsertConfigVehicle', vehhash, type, name)
 
-end, false)
+	end, false)
+end
