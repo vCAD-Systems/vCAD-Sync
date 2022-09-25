@@ -60,7 +60,7 @@ function repetitions()
                 vsync()
             end)
         end
-        Wait(3 * 60000)
+        Wait(15 * 60000)
     end
 end
 
