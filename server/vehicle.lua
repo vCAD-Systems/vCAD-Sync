@@ -2,7 +2,7 @@ function vsync()
     print("[vCAD]: vsync() Starting...")
     local header = {}
         header["content-type"] = "application/json"
-        header["apikey"] = tostring(Config.PrivateKey)
+        header["apikey"] = tostring(Config.ApiKey)
 
         for k, v in pairs(Owned_Vehicles) do
             local senddata = {}

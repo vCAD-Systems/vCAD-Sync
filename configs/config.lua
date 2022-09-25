@@ -11,9 +11,9 @@ Config.Debug = false
 
 --[[
     Trage hier dein PrivateKey ein!
-    Config.PrivateKey = "PRIVATE_KEY"
+    Config.ApiKey = "PRIVATE_KEY"
 ]]
-Config.PrivateKey = ""
+Config.ApiKey = ""
 
 --[[
     Setze die Computer ID ein um es an ein bestimmten PC zu senden.

@@ -32,7 +32,7 @@ AddEventHandler('vCAD-Sync:pload', function(eyecolor, haircolor)
 
     local header = {}
     header["content-type"] = "application/json"
-    header["apikey"] = tostring(Config.PrivateKey)
+    header["apikey"] = tostring(Config.ApiKey)
 
     if Config.Computer == 'all' then
         local senddata = {}
