@@ -1,6 +1,6 @@
-#!!! ACHTUNG !!! 
+# !!! ACHTUNG !!! 
 
-##Dieses Script kann die Struktur eurer users Tabelle verändern!!!
+## Dieses Script kann die Struktur eurer users Tabelle verändern!!!
 
 
 
