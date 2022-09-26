@@ -14,7 +14,9 @@ AddEventHandler('esx:PlayerLoaded', function(xPlayer)
 	local eyecolor = GetPedEyeColor(ped)
 	local haircolor = GetPedHairColor(ped)
 
-	TriggerServerEvent('vCAD-Sync:pload', eyecolor, haircolor)
+	if Config.CharakterSync then
+		TriggerServerEvent('vCAD-Sync:pload', eyecolor, haircolor)
+	end
 end)
 
 if Config.Command ~= nil or Config.Command ~= 'nil' then

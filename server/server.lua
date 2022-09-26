@@ -8,6 +8,11 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
+
+        if not Config.CharakterSync or not Config.Vehicle.Activated then
+            print("Du hast kein Sync Aktiviert, das Script verbraucht unnötig Resourcen!")
+        end
+
         if Config.Multichar.Activated then
             MySQL.query("SELECT * FROM users", function(rs)
                 if rs[1].id == nil then
@@ -40,9 +45,6 @@ function repetitions()
                 table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname})
             end
         end)
-        if Config.Multichar.Activated then
-            csync()
-        end
 
         if Config.Vehicle.Activated then
             Owned_Vehicles = {}

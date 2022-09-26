@@ -38,6 +38,10 @@ Config.Sync_HairColor = false
 ]]
 Config.Sync_EyeColor = false
 
+--[[
+    Wenn Ihr nur den Fahrzeug Sync haben wollt, stellt das einfach auf false, dann werden keine Charakter gesynct.
+]]
+Config.CharakterSync = true
 Config.Multichar = {
     --[[
         Solltet Ihr ein Multichar-System nutzen, Aktiviert diese Funktion damit keine Akten mehrmals erstellt werden.
