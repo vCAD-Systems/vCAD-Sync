@@ -13,7 +13,7 @@ function vsync()
 
             senddata['unique'] = v.id
             senddata['plate'] = plate
-            senddata['cartype'] = CarType(model)
+            senddata['cartyp'] = CarType(model)
             senddata['car'] = CarName(model)
             senddata['owner'] = PlayerName(v.owner)
             if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
