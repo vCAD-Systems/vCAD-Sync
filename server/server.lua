@@ -42,7 +42,9 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 
 function repetitions()
-    print("Script Startet Wait...")
+    if Config.Debug then
+        print("[vCAD]: Script Startet Wait...")
+    end
     while true do
         Users = {}
         MySQL.query("SELECT * FROM users", function(rs)
@@ -50,9 +52,13 @@ function repetitions()
                 table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v.[Config.CharSync.Phone_Number] or nil, aliases = v.[Config.CharSync.Aliases] or nil, skin = v.skin})
             end
         end)
+        
         Wait(5000)
 
         if Config.CharSync.Activated then
+            if Config.Debug then
+                print("[vCAD]: Player Sync gestartet...")
+            end
             syncPlayer()
         end
 
@@ -68,7 +74,13 @@ function repetitions()
                         table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
                     end
                 end
+                if Config.Debug then
+                    print("[vCAD]: Vehicle Daten aus der Datenbank kopiert...")
+                end
                 Wait(5000)
+                if Config.Debug then
+                    print("[vCAD]: Vehicle Sync Start")
+                end
                 vsync(Owned_Vehicles)
             end)
         end

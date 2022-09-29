@@ -71,7 +71,6 @@ end
 function CarType(hash)
     for _, v in pairs(Config.VehiclesList) do
         if v.Hash == hash then
-            --print("[vCAD]: Type:"..v.Type.." Hash:"..hash)
             return v.Type
         end
     end
@@ -81,7 +80,6 @@ end
 function CarName(hash)
     for _, v in pairs(Config.VehiclesList) do
         if v.Hash == hash then
-            --print("[vCAD]: Name:"..v.Type.." Hash:"..hash)
             return v.Label
         end
     end

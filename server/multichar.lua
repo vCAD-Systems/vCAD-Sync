@@ -100,15 +100,20 @@ function syncPlayer()
                     Register_HttpRequest(senddata, header)
                 end
             end
+            if Config.Debug then
+                print("[vCAD]: Player Sync beendet...")
+            end
         else
-            print("[vCAD] xPlayer Error!")
+            if Config.Debug then
+                print("[vCAD][CharSync] xPlayer Error!")
+            end
         end
     end
 end
 
 function Register_HttpRequest(senddata, header)
     if Config.Debug then
-        print(json.encode(senddata))
+        print("[vCAD][CharSync][senddata]:"..json.encode(senddata))
     end
     PerformHttpRequest("https://api.vcad.li/files/addfile?json_file=1", function (errorCode, resultData, resultHeaders)
         if Config.Debug then
