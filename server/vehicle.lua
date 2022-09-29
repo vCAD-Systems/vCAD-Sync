@@ -1,4 +1,4 @@
-function vsync()
+function vsync(Owned_Vehicles)
     print("[vCAD]: vsync() Starting...")
     local header = {}
         header["content-type"] = "application/json"

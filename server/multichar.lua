@@ -10,98 +10,101 @@ AddEventHandler('vCAD-Sync:SetPhoneNumber', function(number)
     PhoneNumber[xPlayer.identifier] = number
 end)
 
-RegisterServerEvent('vCAD-Sync:pload')
-AddEventHandler('vCAD-Sync:pload', function(eyecolor, haircolor)
-    local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
+function syncPlayer()
 
-    local name, gender, size, dob = nil
+    local xPlayers = ESX.GetPlayers()
 
-    if xPlayer == nil then
-        print("vCAD: xPlayer ist nil...")
-        return
-    end
+    for i=1, #xPlayers, 1 do
+        local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+        local ident = xPlayer.identifier
 
-    local identifier = xPlayer.identifier
-    local aliases = xPlayer.getName()
+        local aliases, name, gender, size, dob = nil
 
-    name = xPlayer.name
-    gender = GetData("gender")
-    size = GetData("size")
-    dob = GetData("DOB")
+        if xPlayer ~= nil then
+            if Config.CharSync.Aliases ~= nil or Config.CharSync.Aliases ~= 'nil' then
+                aliases = GetAliases(ident)
+            end
+            name = xPlayer.name
+            gender = GetData(ident, "gender")
+            size = GetData(ident, "size")
+            dob = GetData(ident, "DOB")
 
-    local header = {}
-    header["content-type"] = "application/json"
-    header["apikey"] = tostring(Config.ApiKey)
+            local header = {}
+            header["content-type"] = "application/json"
+            header["apikey"] = tostring(Config.ApiKey)
 
-    if Config.Computer == 'all' then
-        local senddata = {}
-        senddata["computer"] = 'all'
-        if Config.Multichar then
-            for k, v in pairs(Multichar) do
-                if v.identifier == identifier then
-                    senddata["unique"] = v.id
+            if Config.Computer == 'all' then
+                local senddata = {}
+                senddata["computer"] = 'all'
+                if Config.CharSync.Multichar then
+                    for k, v in pairs(Users) do
+                        if v.identifier == ident then
+                            senddata["unique"] = v.id
+                        end
+                    end
+                else
+                    senddata["unique"] = ident
+                end
+                senddata["name"] = name
+                senddata["aliases"] = aliases or ""
+                senddata["gender"] = gender
+                senddata["size"] = tostring(size)
+                senddata["dateofbirth"] = dob
+
+                if Config.CharSync.Phone_Number ~= nil or Config.CharSync.Phone_Number ~= 'nil' then
+                    senddata["phone"] = GetPhoneNumber(ident)
+                end
+                
+                if Config.CharSync.EyeColor then
+                    senddata["eyecolor"] = GetEyeColor(ident, eyecolor)
+                end
+                if Config.CharSync.HairColor then
+                    senddata["haircolor"] = GetHairColor(ident, haircolor)
+                end
+                if BloodGroup[ident] ~= nil then
+                    --senddata["blood"] = BloodGroup[ident]
+                end
+                Register_HttpRequest(senddata, header)
+            else
+                for k, v in pairs(Config.Computer) do
+                    local senddata = {}
+                    senddata["computer"] = v
+                    if Config.CharSync.Multichar then
+                        for _, y in pairs(Users) do
+                            if y.identifier == ident then
+                                senddata["unique"] = y.id
+                            end
+                        end
+                    else
+                        senddata["unique"] = ident
+                    end
+                    senddata["name"] = name
+                    senddata["aliases"] = aliases or ""
+                    senddata["gender"] = gender
+                    senddata["size"] = tostring(size)
+                    senddata["dateofbirth"] = dob
+        
+                    if Config.CharSync.Phone_Number ~= nil or Config.CharSync.Phone_Number ~= 'nil' then
+                        senddata["phone"] = GetPhoneNumber(ident)
+                    end
+                    
+                    if Config.CharSync.EyeColor then
+                        senddata["eyecolor"] = GetEyeColor(ident, eyecolor)
+                    end
+                    if Config.CharSync.HairColor then
+                        senddata["haircolor"] = GetHairColor(ident, haircolor)
+                    end
+                    if BloodGroup ~= nil or BloodGroup[ident] ~= nil then
+                        --senddata["blood"] = BloodGroup[ident]
+                    end
+                    Register_HttpRequest(senddata, header)
                 end
             end
         else
-            senddata["unique"] = identifier
-        end
-        senddata["name"] = name
-        senddata["aliases"] = aliases
-        senddata["gender"] = gender
-        senddata["size"] = tostring(size)
-        senddata["dateofbirth"] = dob
-
-        if PhoneNumber[identifier] ~= nil then
-            senddata["phone"] = tostring(PhoneNumber[identifier])
-        end
-        
-        if Config.Sync_EyeColor then
-            senddata["eyecolor"] = GetEyeColor(eyecolor)
-        end
-        if Config.Sync_HairColor then
-            senddata["haircolor"] = GetHairColor(haircolor)
-        end
-        if BloodGroup[identifier] ~= nil then
-            senddata["blood"] = BloodGroup[identifier]
-        end
-        Register_HttpRequest(senddata, header)
-    else
-        for k, v in pairs(Config.Computer) do
-            local senddata = {}
-            senddata["computer"] = v
-            if Config.Multichar then
-                for _, y in pairs(Multichar) do
-                    if y.identifier == identifier then
-                        senddata["unique"] = y.id
-                    end
-                end
-            else
-                senddata["unique"] = identifier
-            end
-            senddata["name"] = name
-            senddata["aliases"] = aliases
-            senddata["gender"] = gender
-            senddata["size"] = tostring(size)
-            senddata["dateofbirth"] = dob
-
-            if PhoneNumber ~= nil or PhoneNumber[identifier] ~= nil then
-                senddata["phone"] = tostring(PhoneNumber)
-            end
-            
-            if Config.Sync_EyeColor then
-                senddata["eyecolor"] = GetEyeColor(eyecolor)
-            end
-            if Config.Sync_HairColor then
-                senddata["haircolor"] = GetHairColor(haircolor)
-            end
-            if BloodGroup ~= nil or BloodGroup[identifier] ~= nil then
-                senddata["blood"] = BloodGroup[identifier]
-            end
-            Register_HttpRequest(senddata, header)
+            print("[vCAD] xPlayer Error!")
         end
     end
-end)
+end
 
 function Register_HttpRequest(senddata, header)
     if Config.Debug then
@@ -114,7 +117,6 @@ function Register_HttpRequest(senddata, header)
         end
         Wait(100)
         resultData2 = json.decode(resultData)
-        print(resultData2["data"]["insteadupdate"])
         
 
         if resultData2["data"]["insteadupdate"] == true then
@@ -124,9 +126,6 @@ function Register_HttpRequest(senddata, header)
 end
 
 function Update_HttpRequest(senddata, header)
-    if Config.Debug then
-        print(json.encode(senddata))
-    end
     PerformHttpRequest("https://api.vcad.li/files/updatefile?json_file=1", function (errorCode, resultData, resultHeaders)
         if Config.Debug then
             print(errorCode)

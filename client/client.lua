@@ -7,24 +7,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('esx:PlayerLoaded')
-AddEventHandler('esx:PlayerLoaded', function(xPlayer)
-	Wait(5 * 60000)
-	local ped = PlayerPedId()
-	local eyecolor = GetPedEyeColor(ped)
-	local haircolor = GetPedHairColor(ped)
-
-	if Config.CharakterSync then
-		TriggerServerEvent('vCAD-Sync:pload', eyecolor, haircolor)
-	end
-end)
-
 if Config.Command ~= nil or Config.Command ~= 'nil' then
 	RegisterCommand(Config.Command,function(source, args)
 		local ped = PlayerPedId()
 		local veh = GetVehiclePedIsIn(ped)
 
 		if veh == 0 or veh == nil then
+			ESX.ShowNotification('Du musst dafür in ein Fahrzeug sitzen!')
 			return
 		end
 

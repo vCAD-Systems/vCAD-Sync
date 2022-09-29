@@ -1,5 +1,5 @@
-function GetData(value)
-    xPlayer = ESX.GetPlayerFromId(source)
+function GetData(ident, value)
+    xPlayer = ESX.GetPlayerFromIdentifier(ident)
 
     local data = xPlayer.variables
 
@@ -20,19 +20,49 @@ function GetData(value)
     end
 end
 
-function GetEyeColor(number)
-    for k, v in pairs(Config.eye_color) do
-        if v.color == number then
-            return v.label
+function GetAliases(ident)
+    for _, v in pairs(Users) do
+        if v.owner == ident then
+            return v.aliases
         end
     end
     return ""
 end
 
-function GetHairColor(number)
-    for k, v in pairs(Config.hair_color) do
-        if v.color == number then
-            return v.label
+function GetPhoneNumber(ident)
+    for _, v in pairs(Users) do
+        if v.owner == ident then
+            return v.phone
+        end
+    end
+    return ""
+end
+
+function GetEyeColor(ident, number)
+    for _, v in pairs(Users) do
+        if ident == v.owner then
+            local data = json.decode(v.skin)
+
+            for k, c in pairs(Config.eye_color) do
+                if data["eye_color"] == c.color then
+                    return c.label
+                end
+            end
+        end
+    end
+    return ""
+end
+
+function GetHairColor(ident, number)
+    for _, v in pairs(Users) do
+        if ident == v.owner then
+            local data = json.decode(v.skin)
+
+            for k, c in pairs(Config.hair_color) do
+                if data["hair_color_1"] == c.color then
+                    return c.label
+                end
+            end
         end
     end
     return ""

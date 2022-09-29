@@ -11,7 +11,7 @@ Config.Debug = false
 
 --[[
     Trage hier dein PrivateKey ein!
-    Config.ApiKey = "PRIVATE_KEY"
+    Config.ApiKey = "KEY"
 ]]
 Config.ApiKey = ""
 
@@ -22,35 +22,56 @@ Config.ApiKey = ""
     oder
     Computer = "all"
 ]]
-Config.Computer = 'all'
+Config.Computer = "all"
 
---[[
-    Wollt Ihr das die Aktuellen Haare in der Akte eingetragen wird, wenn der Spieler auf dem Server joint?
-    Deaktiviert: false
-    Aktivieren: true
-]]
-Config.Sync_HairColor = false
-
---[[
-    Wollt Ihr das die Aktuellen Augenfarbe in der Akte eingetragen wird, wenn der Spieler auf dem Server joint?
-    Deaktiviert: false
-    Aktivieren: true
-]]
-Config.Sync_EyeColor = false
-
---[[
-    Wenn Ihr nur den Fahrzeug Sync haben wollt, stellt das einfach auf false, dann werden keine Charakter gesynct.
-]]
-Config.CharakterSync = true
-Config.Multichar = {
+Config.CharSync = {
     --[[
-        Solltet Ihr ein Multichar-System nutzen, Aktiviert diese Funktion damit keine Akten mehrmals erstellt werden.
-        An = true
-        Aus = false
+        Wenn Ihr nur den Fahrzeug Sync haben wollt, stellt das "Activated einfach auf false, dann werden keine Charakter gesynct.
     ]]
-    Activated = false,
+    Activated = true,
+    --[[
+        Ihr nutzt ein Multichar System und habt wechselnde Identifier, setzt "Multichar" auf true.
+    ]]
+    Multichar = false,
 
-    Spalte = nil
+
+    --[[
+        Wollt Ihr das die Aktuellen Haare in der Akte eingetragen wird?
+        Beachtet die hair.lua
+        Deaktiviert: false
+        Aktivieren: true
+    ]]
+    HairColor = true,
+
+    --[[
+        Wollt Ihr das die Aktuellen Augenfarbe in der Akte eingetragen wird?
+        Beachtet die eye.lua
+        Deaktiviert: false
+        Aktivieren: true
+    ]]
+    EyeColor = true,
+
+    --[[
+        Ihr habt bereits eine Spalte mit AUTO_INCREMENT, und diese Spalte ist als UNIQUE Makiert, screibt sie statt nil in Anführungszeichen (") bei Id_Spalte rein.
+        Ihr habt keine Ahnung davon? lasst es auf nil und die ID Spalte wird Automatisch in eurer Datenbank hinzugefügt.
+        Wird nur benötigt wenn "Multichar = true"
+    ]]
+    Id_Spalte = nil,
+    --[[
+        Ihr habt noch eine Spalte wo z.B der Steamnamen drin steht in eurer users Tabelle?
+        schreibt den Spalten namen nach dem gleichzeichen in Anführungszeichen und der wird mit in der Akte eingetragen.
+        Deaktiviert = nil
+        Standard = "steamname"
+    ]]
+
+    Aliases = nil
+
+    --[[
+        Ihr habt eure Handynummer in der users Tabelle gespeichert? tragt hier den Spalten namen ein.
+        Aus = nil
+        Standard  = "phone_number"
+    ]]
+    Phone_Number = nil
 }
 
 Config.Vehicle = {
@@ -59,7 +80,7 @@ Config.Vehicle = {
         An = true
         Aus = false
     ]]
-    Activated = true,
+    Activated = false,
 
     HU_spalte = nil
 }

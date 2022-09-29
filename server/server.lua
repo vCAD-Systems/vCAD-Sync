@@ -9,16 +9,21 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
 
-        if not Config.CharakterSync or not Config.Vehicle.Activated then
-            print("Du hast kein Sync Aktiviert, das Script verbraucht unnötig Resourcen!")
+        if Config.ApiKey == nil or Config.ApiKey == "" then
+            while true do
+                print("Kein Api Key eingetragen!!!")
+                Wait(10000)
+            end
         end
 
-        if Config.Multichar.Activated then
-            MySQL.query("SELECT * FROM users", function(rs)
-                if rs[1].id == nil then
-                    MySQL.query("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
-                end
-            end)
+        if Config.CharSync.Multichar and Config.CharSync.Activated then
+            if Config.CharSync.Id_Spalte == nil then
+                MySQL.query("SELECT * FROM users", function(rs)
+                    if rs[1].id == nil then
+                        MySQL.query("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
+                    end
+                end)
+            end
         end
 
         if Config.Vehicle.Activated then
@@ -29,7 +34,7 @@ AddEventHandler('onResourceStart', function(resourceName)
             end)
         end
 
-        if Config.Multichar.Activated or Config.Vehicle.Activated then
+        if Config.CharSync.Activated or Config.Vehicle.Activated then
             Wait(5000)
             repetitions()
         end
@@ -42,9 +47,14 @@ function repetitions()
         Users = {}
         MySQL.query("SELECT * FROM users", function(rs)
             for _, v in pairs(rs) do
-                table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname})
+                table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v.[Config.CharSync.Phone_Number] or nil, aliases = v.[Config.CharSync.Aliases] or nil, skin = v.skin})
             end
         end)
+        Wait(5000)
+
+        if Config.CharSync.Activated then
+            syncPlayer()
+        end
 
         if Config.Vehicle.Activated then
             Owned_Vehicles = {}
@@ -58,8 +68,8 @@ function repetitions()
                         table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
                     end
                 end
-                Wait(1000)
-                vsync()
+                Wait(5000)
+                vsync(Owned_Vehicles)
             end)
         end
         Wait(15 * 60000)
