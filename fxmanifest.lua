@@ -15,11 +15,3 @@ server_scripts {
     'configs/*.lua',
     'server/*.lua',
 }
-
-ui_page 'html/index.html'
-
-files {
-	'html/index.html',
-	'html/jquery.js',
-	'html/init.js',
-}
