@@ -2,11 +2,16 @@
 
 ### Dieses Script kann die Struktur eurer "users" Tabelle verändern!!!
 
+# ESX
+
+Die ESX-Version ist nur mit dem verbreiteten ESX-Legacy framework kompatibel.
+
 
 ## Installation
 
 Füge die Resource einfach in euren Resourcen Ordner ein.
-gehe dann auf [vCAD](https://vcad.li/ucp/api.php) und Aktiviere dein API Key.
+Denke daran, es in der server.cfg einzutragen.
+Gehe dann auf [vCAD](https://vcad.li/ucp/api.php) und Aktiviere dein API Key.
 Diesen Key Kopierst du dir und gehst dann in die config/config.lua und fügst den Key unter Config.ApiKey ein.
 
 Es ist Automatisch eingestellt das die User die auf dem Server sind Gesynct werden, ohne Handynummer.
