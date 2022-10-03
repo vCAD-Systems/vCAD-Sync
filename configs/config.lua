@@ -64,7 +64,7 @@ Config.CharSync = {
         Standard = "steamname"
     ]]
 
-    Aliases = nil
+    Aliases = nil,
 
     --[[
         Ihr habt eure Handynummer in der users Tabelle gespeichert? tragt hier den Spalten namen ein.
