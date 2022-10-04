@@ -4,7 +4,9 @@
 
 # ESX
 
-Die ESX-Version ist nur mit dem verbreiteten ESX-Legacy framework kompatibel.
+Die ESX-Version ist nur mit dem alten ESX-Framework kompatibel.
+
+Benötigt: [MySQL-Async](https://brouznouf.github.io/fivem-mysql-async)
 
 
 ## Installation
@@ -20,4 +22,4 @@ Du findest in den Config immer eine beschreibung zu den Einstellungen die du vor
 Solltest du weiter hilfe benötigen, oder fragen haben melde dich in unserem [Discord](https://discord.com/invite/fqXSMHH/) oder [Teamspeak](ts3server://wgc) suppot
 
 
-Weitere Informationen findest du auf [Klick Mich](https://github.com/vCAD-Systems/vCAD-Sync)
+Weitere Informationen findest du auf [Klick Mich](https://github.com/vCAD-Systems/vCAD-Sync/tree/vCAD-Sync(Mysql-Async))
