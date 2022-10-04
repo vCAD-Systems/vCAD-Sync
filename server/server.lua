@@ -18,18 +18,18 @@ AddEventHandler('onResourceStart', function(resourceName)
 
         if Config.CharSync.Multichar and Config.CharSync.Activated then
             if Config.CharSync.Id_Spalte == nil then
-                MySQL.query("SELECT * FROM users", function(rs)
+                MySQL.Async.fetchAll("SELECT * FROM users", function(rs)
                     if rs[1].id == nil then
-                        MySQL.query("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
+                        MySQL.Async.execute("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
                     end
                 end)
             end
         end
 
         if Config.Vehicle.Activated then
-            MySQL.query("SELECT * FROM owned_vehicles", function(rs)
+            MySQL.Async.fetchAll("SELECT * FROM owned_vehicles", function(rs)
                 if rs[1].id == nil then
-                    MySQL.query("ALTER TABLE `owned_vehicles` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
+                    MySQL.Async.execute("ALTER TABLE `owned_vehicles` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
                 end
             end)
         end
@@ -47,7 +47,7 @@ function repetitions()
     end
     while true do
         Users = {}
-        MySQL.query("SELECT * FROM users", function(rs)
+        MySQL.Async.fetchAll("SELECT * FROM users", function(rs)
             for _, v in pairs(rs) do
                 table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v[Config.CharSync.Phone_Number] or nil, aliases = v[Config.CharSync.Aliases] or nil, skin = v.skin})
             end
@@ -64,7 +64,7 @@ function repetitions()
 
         if Config.Vehicle.Activated then
             Owned_Vehicles = {}
-            MySQL.query("SELECT * FROM owned_vehicles", function(rs)
+            MySQL.Async.fetchAll("SELECT * FROM owned_vehicles", function(rs)
                 if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
                     for _, v in pairs(rs) do
                         table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle})
