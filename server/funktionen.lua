@@ -1,7 +1,8 @@
 function GetData(ident, value)
     xPlayer = ESX.GetPlayerFromIdentifier(ident)
 
-    local data = xPlayer.variables
+    local data = MySQL.Sync.fetchAll('SELECT * FROM users WHERE identifier="'..xPlayer.identifier..'"', {})
+    data = data[1]
 
     if value == "gender" then
         if data.sex == "m" then
@@ -17,6 +18,8 @@ function GetData(ident, value)
         return data.height
     elseif value == "DOB" then
         return data.dateofbirth
+    elseif value == "name" then
+        return (data.firstname.." "..data.lastname)
     end
 end
 

@@ -24,7 +24,7 @@ function syncPlayer()
             if Config.CharSync.Aliases ~= nil or Config.CharSync.Aliases ~= 'nil' then
                 aliases = GetAliases(ident)
             end
-            name = xPlayer.name
+            name = GetData(ident, "name")
             gender = GetData(ident, "gender")
             size = GetData(ident, "size")
             dob = GetData(ident, "DOB")

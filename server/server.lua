@@ -18,20 +18,18 @@ AddEventHandler('onResourceStart', function(resourceName)
 
         if Config.CharSync.Multichar and Config.CharSync.Activated then
             if Config.CharSync.Id_Spalte == nil then
-                MySQL.Async.fetchAll("SELECT * FROM users", function(rs)
-                    if rs[1].id == nil then
-                        MySQL.Async.execute("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
-                    end
-                end)
+                local rs = MySQL.Sync.fetchAll("SELECT * FROM users", {})
+                if rs[1].id == nil then
+                    MySQL.Sync.execute("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
+                end
             end
         end
 
         if Config.Vehicle.Activated then
-            MySQL.Async.fetchAll("SELECT * FROM owned_vehicles", function(rs)
-                if rs[1].id == nil then
-                    MySQL.Async.execute("ALTER TABLE `owned_vehicles` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
-                end
-            end)
+            local rs = MySQL.Sync.fetchAll("SELECT * FROM owned_vehicles", {})
+            if rs[1].id == nil then
+                MySQL.Sync.execute("ALTER TABLE `owned_vehicles` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
+            end
         end
 
         if Config.CharSync.Activated or Config.Vehicle.Activated then
@@ -47,11 +45,10 @@ function repetitions()
     end
     while true do
         Users = {}
-        MySQL.Async.fetchAll("SELECT * FROM users", function(rs)
-            for _, v in pairs(rs) do
-                table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v[Config.CharSync.Phone_Number] or nil, aliases = v[Config.CharSync.Aliases] or nil, skin = v.skin})
-            end
-        end)
+        local rs = MySQL.Sync.fetchAll("SELECT * FROM users", {})
+        for _, v in pairs(rs) do
+            table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v[Config.CharSync.Phone_Number] or nil, aliases = v[Config.CharSync.Aliases] or nil, skin = v.skin})
+        end
         
         Wait(5000)
 
@@ -64,25 +61,24 @@ function repetitions()
 
         if Config.Vehicle.Activated then
             Owned_Vehicles = {}
-            MySQL.Async.fetchAll("SELECT * FROM owned_vehicles", function(rs)
-                if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
-                    for _, v in pairs(rs) do
-                        table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle})
-                    end
-                else
-                    for _, v in pairs(rs) do
-                        table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
-                    end
+            local rs = MySQL.Sync.fetchAll("SELECT * FROM owned_vehicles", {})
+            if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
+                for _, v in pairs(rs) do
+                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle})
                 end
-                if Config.Debug then
-                    print("[vCAD]: Vehicle Daten aus der Datenbank kopiert...")
+            else
+                for _, v in pairs(rs) do
+                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
                 end
-                Wait(5000)
-                if Config.Debug then
-                    print("[vCAD]: Vehicle Sync Start")
-                end
-                vsync(Owned_Vehicles)
-            end)
+            end
+            if Config.Debug then
+                print("[vCAD]: Vehicle Daten aus der Datenbank kopiert...")
+            end
+            Wait(5000)
+            if Config.Debug then
+                print("[vCAD]: Vehicle Sync Start")
+            end
+            vsync(Owned_Vehicles)
         end
         Wait(15 * 60000)
     end
