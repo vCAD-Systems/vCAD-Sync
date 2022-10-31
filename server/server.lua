@@ -64,11 +64,11 @@ function repetitions()
             local rs = MySQL.Sync.fetchAll("SELECT * FROM owned_vehicles", {})
             if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
                 for _, v in pairs(rs) do
-                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle})
+                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
                 end
             else
                 for _, v in pairs(rs) do
-                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle, HU = v[Config.Vehicle.HU_spalte]})
+                    table.insert(Owned_Vehicles, {id = v.id, owner = v.owner, vehicle = v.vehicle})
                 end
             end
             if Config.Debug then
