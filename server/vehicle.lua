@@ -17,7 +17,7 @@ function vsync(Owned_Vehicles)
         senddata['car'] = CarName(model)
         senddata['owner'] = PlayerName(v.owner)
         if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
-            senddata['safetodrive'] = v[Config.Vehicle.HU_spalte]
+            senddata['safetodrive'] = v.HU
         end
         Register_Vehicle_HttpRequest(senddata, header)
     end
