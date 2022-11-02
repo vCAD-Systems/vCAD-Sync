@@ -980,45 +980,19 @@
 					"formdata": [
 						{
 							"key": "plate",
-							"value": "",
+							"value": "peter",
 							"type": "text",
 							"description": "NEEDED: Plate of the Vehicle"
 						},
 						{
 							"key": "unique",
-							"value": "",
+							"value": "1337",
 							"type": "text",
 							"description": "NEEDED: To Identifier the Vehicle"
 						}
 					]
 				},
-				"url": {
-					"raw": "https://api.vcad.li/vehicles/deletevehicle?unique&plate",
-					"protocol": "https",
-					"host": [
-						"api",
-						"vcad",
-						"li"
-					],
-					"path": [
-						"vehicles",
-						"deletevehicle"
-					],
-					"query": [
-						{
-							"key": "unique",
-							"value": null,
-							"description": "NEEDED: Unique of the Vehicle",
-							"type": "text"
-						},
-						{
-							"key": "plate",
-							"value": null,
-							"description": "NEEDED: Plate of the Vehicle",
-							"type": "text"
-						}
-					]
-				},
+				"url": "https://api.vcad.li/vehicles/deletevehicle",
 				"description": "Get a Specific Vehicle Information"
 			},
 			"response": []
