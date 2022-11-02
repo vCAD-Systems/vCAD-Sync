@@ -1103,7 +1103,7 @@
 	"auth": {
 		"type": "apikey",
 		"apikey": {
-			"value": "8bc2ffc9d4cbb5f7f1189880879a9b9c",
+			"value": "",
 			"key": "apikey",
 			"in": "header"
 		}
@@ -1112,7 +1112,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ceb6daf3-75b4-4d6a-a3ef-31d027795909",
+				"id": "56241fdb-8931-45cc-ad60-e6451650c3c3",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1122,7 +1122,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "58b8d279-cdd6-4944-bc31-95fa2b7ffc59",
+				"id": "f304af48-ab95-4f80-bb8f-9021487b550b",
 				"type": "text/javascript",
 				"exec": [
 					""
