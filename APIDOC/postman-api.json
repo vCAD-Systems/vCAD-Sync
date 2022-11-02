@@ -992,7 +992,33 @@
 						}
 					]
 				},
-				"url": "https://api.vcad.li/vehicles/getvehicle",
+				"url": {
+					"raw": "https://api.vcad.li/vehicles/deletevehicle?unique&plate",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vcad",
+						"li"
+					],
+					"path": [
+						"vehicles",
+						"deletevehicle"
+					],
+					"query": [
+						{
+							"key": "unique",
+							"value": null,
+							"description": "NEEDED: Unique of the Vehicle",
+							"type": "text"
+						},
+						{
+							"key": "plate",
+							"value": null,
+							"description": "NEEDED: Plate of the Vehicle",
+							"type": "text"
+						}
+					]
+				},
 				"description": "Get a Specific Vehicle Information"
 			},
 			"response": []
