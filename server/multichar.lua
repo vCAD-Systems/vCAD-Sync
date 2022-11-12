@@ -38,7 +38,7 @@ function syncPlayer()
                 senddata["computer"] = 'all'
                 if Config.CharSync.Multichar then
                     for k, v in pairs(Users) do
-                        if v.identifier == ident then
+                        if v.owner == ident then
                             senddata["unique"] = v.id
                         end
                     end
