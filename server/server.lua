@@ -49,7 +49,7 @@ function repetitions()
         Users = {}
         MySQL.query("SELECT * FROM users", function(rs)
             for _, v in pairs(rs) do
-                table.insert(Users, {id = v.id or nil, owner = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v[Config.CharSync.Phone_Number] or nil, aliases = v[Config.CharSync.Aliases] or nil, skin = v.skin})
+                table.insert(Users, {id = v.id or nil, owner = v.identifier, identifier = v.identifier, firstname = v.firstname, lastname = v.lastname, phone = v[Config.CharSync.Phone_Number] or nil, aliases = v[Config.CharSync.Aliases] or nil, skin = v.skin})
             end
         end)
         
