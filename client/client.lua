@@ -31,6 +31,5 @@ if Config.Command ~= nil or Config.Command ~= 'nil' then
 		end
 
 		TriggerServerEvent('vCAD-Sync:InsertConfigVehicle', vehhash, type, name)
-
 	end, false)
 end

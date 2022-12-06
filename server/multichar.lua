@@ -11,7 +11,6 @@ AddEventHandler('vCAD-Sync:SetPhoneNumber', function(number)
 end)
 
 function syncPlayer()
-
     local xPlayers = ESX.GetPlayers()
 
     for i=1, #xPlayers, 1 do
@@ -24,10 +23,11 @@ function syncPlayer()
             if Config.CharSync.Aliases ~= nil or Config.CharSync.Aliases ~= 'nil' then
                 aliases = GetAliases(ident)
             end
+
             name = xPlayer.name
-            gender = GetData(ident, "gender")
-            size = GetData(ident, "size")
-            dob = GetData(ident, "DOB")
+            gender = GetData(xPlayer.variables, "gender")
+            size = GetData(xPlayer.variables, "size")
+            dob = GetData(xPlayer.variables, "DOB")
 
             local header = {}
             header["content-type"] = "application/json"
@@ -100,6 +100,7 @@ function syncPlayer()
                     Register_HttpRequest(senddata, header)
                 end
             end
+
             if Config.Debug then
                 print("[vCAD]: Player Sync beendet...")
             end
