@@ -1,8 +1,7 @@
 function GetData(ident)
     local returnData = {}
-    local xPlayer = ESX.GetPlayerFromIdentifier(ident)
 
-    local data = MySQL.Sync.fetchAll('SELECT * FROM users WHERE identifier="'..xPlayer.identifier..'"', {})
+    local data = MySQL.Sync.fetchAll('SELECT * FROM users WHERE identifier="'..ident..'"', {})
     data = data[1]
 
     if data.sex == "m" then

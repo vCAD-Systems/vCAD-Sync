@@ -125,9 +125,10 @@ function Register_HttpRequest(senddata, header)
         Wait(100)
         resultData2 = json.decode(resultData)
         
-
-        if resultData2["data"]["insteadupdate"] == true then
-            Update_HttpRequest(senddata, header)
+        if resultData2["data"] ~= nil then
+            if resultData2["data"]["insteadupdate"] == true then
+                Update_HttpRequest(senddata, header)
+            end
         end
     end, 'POST', json.encode(senddata), header)
 end
