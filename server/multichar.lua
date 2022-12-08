@@ -24,10 +24,12 @@ function syncPlayer()
             if Config.CharSync.Aliases ~= nil or Config.CharSync.Aliases ~= 'nil' then
                 aliases = GetAliases(ident)
             end
-            name = GetData(ident, "name")
-            gender = GetData(ident, "gender")
-            size = GetData(ident, "size")
-            dob = GetData(ident, "DOB")
+
+            playerData = GetData(ident)
+            name = playerData.name
+            gender = playerData.gender
+            size = playerData.height
+            dob = playerData.dob
 
             local header = {}
             header["content-type"] = "application/json"

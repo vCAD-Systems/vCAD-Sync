@@ -1,26 +1,25 @@
-function GetData(ident, value)
-    xPlayer = ESX.GetPlayerFromIdentifier(ident)
+function GetData(ident)
+    local returnData = {}
+    local xPlayer = ESX.GetPlayerFromIdentifier(ident)
 
     local data = MySQL.Sync.fetchAll('SELECT * FROM users WHERE identifier="'..xPlayer.identifier..'"', {})
     data = data[1]
 
-    if value == "gender" then
-        if data.sex == "m" then
-            return "Männlich"
-        elseif data.sex == "f" then
-            return "Weiblich"
-        elseif data.sex == "d" then
-            return "Diverse"
-        else
-            return data.sex
-        end
-    elseif value == "size" then
-        return data.height
-    elseif value == "DOB" then
-        return data.dateofbirth
-    elseif value == "name" then
-        return (data.firstname.." "..data.lastname)
+    if data.sex == "m" then
+        returnData.gender = "Männlich"
+    elseif data.sex == "f" then
+        returnData.gender = "Weiblich"
+    elseif data.sex == "d" then
+        returnData.gender = "Diverse"
+    else
+        returnData.gender = data.sex
     end
+
+    returnData.height = data.height
+    returnData.dob = data.dateofbirth
+    returnData.name = (data.firstname.." "..data.lastname)
+
+    return returnData
 end
 
 function GetAliases(ident)
