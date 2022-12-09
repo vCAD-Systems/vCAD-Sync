@@ -124,6 +124,10 @@ function Register_HttpRequest(senddata, header)
         Wait(100)
         resultData2 = json.decode(resultData)
         
+        if resultData2 == nil then
+            print("[vCAD-Sync] Fehler bei der Decodierung der Antwort aufgetreten.")
+            return
+        end
 
         if resultData2["data"]["insteadupdate"] == true then
             Update_HttpRequest(senddata, header)
