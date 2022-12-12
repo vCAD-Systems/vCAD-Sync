@@ -24,10 +24,12 @@ function syncPlayer()
             if Config.CharSync.Aliases ~= nil or Config.CharSync.Aliases ~= 'nil' then
                 aliases = GetAliases(ident)
             end
-            name = GetData(ident, "name")
-            gender = GetData(ident, "gender")
-            size = GetData(ident, "size")
-            dob = GetData(ident, "DOB")
+
+            playerData = GetData(ident)
+            name = playerData.name
+            gender = playerData.gender
+            size = playerData.height
+            dob = playerData.dob
 
             local header = {}
             header["content-type"] = "application/json"
@@ -122,8 +124,12 @@ function Register_HttpRequest(senddata, header)
         end
         Wait(100)
         resultData2 = json.decode(resultData)
-        
 
+        if resultData2 == nil then
+            print("[vCAD-Sync] Fehler bei der Decodierung der Antwort aufgetreten.")
+            return
+        end
+        
         if resultData2["data"]["insteadupdate"] == true then
             Update_HttpRequest(senddata, header)
         end
