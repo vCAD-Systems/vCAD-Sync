@@ -1,23 +1,21 @@
-function GetData(ident, value)
-    xPlayer = ESX.GetPlayerFromIdentifier(ident)
-
-    local data = xPlayer.variables
-
+function GetData(xPlayerVariables, value)
     if value == "gender" then
-        if data.sex == "m" then
+        if xPlayerVariables.sex == "m" then
             return "Männlich"
-        elseif data.sex == "f" then
+        elseif xPlayerVariables.sex == "f" then
             return "Weiblich"
-        elseif data.sex == "d" then
+        elseif xPlayerVariables.sex == "d" then
             return "Diverse"
         else
-            return data.sex
+            return xPlayerVariables.sex
         end
     elseif value == "size" then
-        return data.height
+        return xPlayerVariables.height
     elseif value == "DOB" then
-        return data.dateofbirth
+        return xPlayerVariables.dateofbirth
     end
+
+    return ""
 end
 
 function GetAliases(ident)
@@ -26,6 +24,7 @@ function GetAliases(ident)
             return v.aliases
         end
     end
+
     return ""
 end
 
@@ -35,6 +34,7 @@ function GetPhoneNumber(ident)
             return v.phone
         end
     end
+
     return ""
 end
 
@@ -50,6 +50,7 @@ function GetEyeColor(ident, number)
             end
         end
     end
+
     return ""
 end
 
@@ -65,6 +66,7 @@ function GetHairColor(ident, number)
             end
         end
     end
+
     return ""
 end
 
@@ -74,6 +76,7 @@ function CarType(hash)
             return v.Type
         end
     end
+
     return "Unbekannt"
 end
 
@@ -83,6 +86,7 @@ function CarName(hash)
             return v.Label
         end
     end
+
     return "Unbekannt"
 end
 
@@ -98,12 +102,14 @@ end
 function DeleteString(path, before)
     local inf = assert(io.open(path, "r+"), "[vCAD-Sync] Fehler beim Öffnen der Datei.")
     local lines = ""
+    
     while true do
         local line = inf:read("*line")
 		if not line then break end
 		
 		if line ~= before then lines = lines .. line .. "\n" end
     end
+
     inf:close()
     file = io.open(path, "w")
     file:write(lines)
@@ -111,9 +117,11 @@ function DeleteString(path, before)
 end
 
 function lines_from(file)
-  lines = {}
-  for line in io.lines(file) do 
-    lines[#lines + 1] = line
-  end
-  return lines
+    lines = {}
+    
+    for line in io.lines(file) do 
+        lines[#lines + 1] = line
+    end
+
+    return lines
 end

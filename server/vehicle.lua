@@ -1,5 +1,5 @@
-function vsync(Owned_Vehicles)
-    print("[vCAD]: vsync() Starting...")
+function syncVehicles(Owned_Vehicles)
+    print("[vCAD]: syncVehicles() Starting...")
     local header = {}
     header["content-type"] = "application/json"
     header["apikey"] = tostring(Config.ApiKey)
@@ -19,8 +19,10 @@ function vsync(Owned_Vehicles)
         if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
             senddata['safetodrive'] = v.HU
         end
+        
         Register_Vehicle_HttpRequest(senddata, header)
     end
+
     if Config.Debug then
         print("[vCAD]: Vehicle Sync beendet...")
     end
@@ -38,6 +40,10 @@ function Register_Vehicle_HttpRequest(senddata, header)
         Wait(100)
         resultData2 = json.decode(resultData)
         
+        if resultData2 == nil then
+            print("[vCAD-Sync] Fehler bei der Decodierung der Antwort aufgetreten.")
+            return
+        end
 
         if resultData2["data"]["insteadupdate"] == true then
             Update_Vehicle_HttpRequest(senddata, header)

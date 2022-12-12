@@ -45,6 +45,7 @@ function repetitions()
     if Config.Debug then
         print("[vCAD]: Script Startet Wait...")
     end
+
     while true do
         Users = {}
         MySQL.query("SELECT * FROM users", function(rs)
@@ -81,7 +82,7 @@ function repetitions()
                 if Config.Debug then
                     print("[vCAD]: Vehicle Sync Start")
                 end
-                vsync(Owned_Vehicles)
+                syncVehicles(Owned_Vehicles)
             end)
         end
         Wait(15 * 60000)
@@ -99,6 +100,7 @@ AddEventHandler('vCAD-Sync:InsertConfigVehicle', function(vehhash, type, name)
             return
         end
     end
+
     TriggerClientEvent('esx:showNotification', source, "Du hast keine Rechte für diese Aktion!")
 end)
 
