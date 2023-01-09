@@ -16,7 +16,7 @@ function syncVehicles(Owned_Vehicles)
         senddata['cartyp'] = CarType(model)
         senddata['car'] = CarName(model)
         senddata['owner'] = PlayerName(v.owner)
-        if Config.Vehicle.HU_spalte ~= nil or Config.Vehicle.HU_spalte ~= 'nil' then
+        if Config.Vehicle.HU_spalte ~= nil then
             senddata['safetodrive'] = v.HU
         end
         
