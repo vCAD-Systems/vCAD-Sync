@@ -12,8 +12,9 @@ Config.Debug = false
 --[[
     Trage hier dein PrivateKey ein!
     Config.ApiKey = "KEY"
+
+    Findest du ab sofort in der "server/api_config.lua"
 ]]
-Config.ApiKey = ""
 
 --[[
     Setze die Computer ID ein um es an ein bestimmten PC zu senden.
