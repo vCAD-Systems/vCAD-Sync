@@ -1,7 +1,7 @@
 fx_version 'bodacious'
 game 'gta5'
 
-name 'vCAD Sync - ESX Version'
+name 'vCAD Sync - ESX Version (mysql-async)'
 author 'Mîhó'
 version '2.0'
 
