@@ -11,7 +11,7 @@ AddEventHandler('vCAD-Sync:SetPhoneNumber', function(number)
 end)
 
 function syncPlayer()
-    local xPlayers = ESX.GetPlayers()
+    local xPlayers = ESX.GetExtendedPlayers()
 
     for i=1, #xPlayers, 1 do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
