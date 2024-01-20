@@ -13,7 +13,7 @@ end)
 function syncPlayer()
     local xPlayers = ESX.GetExtendedPlayers()
 
-    for i=1, #xPlayers, 1 do
+    for k, v in pairs(xPlayers) do
         local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
         local ident = xPlayer.identifier
 
