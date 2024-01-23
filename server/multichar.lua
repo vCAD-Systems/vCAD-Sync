@@ -14,7 +14,7 @@ function syncPlayer()
     local xPlayers = ESX.GetExtendedPlayers()
 
     for k, v in pairs(xPlayers) do
-        local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+        local xPlayer = ESX.GetPlayerFromId(v.source)
         local ident = xPlayer.identifier
 
         local aliases, name, gender, size, dob = nil
