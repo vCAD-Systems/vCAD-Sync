@@ -19,7 +19,7 @@ AddEventHandler('onResourceStart', function(resourceName)
         if Config.CharSync.Multichar and Config.CharSync.Activated then
             if Config.CharSync.Id_Spalte == nil then
                 MySQL.query("SELECT * FROM users", function(rs)
-                    if rs[1].id == nil then
+                    if rs ~= nil and rs[1] ~= nil and rs[1].id == nil then
                         MySQL.query("ALTER TABLE `users` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
                     end
                 end)
@@ -28,7 +28,7 @@ AddEventHandler('onResourceStart', function(resourceName)
 
         if Config.Vehicle.Activated then
             MySQL.query("SELECT * FROM owned_vehicles", function(rs)
-                if rs[1].id == nil then
+                if rs ~= nil and rs[1] ~= nil and rs[1].id == nil then
                     MySQL.query("ALTER TABLE `owned_vehicles` ADD `id` BIGINT NOT NULL AUTO_INCREMENT FIRST, ADD UNIQUE (`id`)")
                 end
             end)
