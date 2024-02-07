@@ -1,10 +1,9 @@
-ESX = nil
 Users = {}
 Owned_Vehicles = {}
 PhoneNumber = {}
 BloodGroup = {}
 
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+ESX = exports["es_extended"]:getSharedObject()
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() == resourceName then
