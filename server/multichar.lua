@@ -13,8 +13,7 @@ end)
 function syncPlayer()
     local xPlayers = ESX.GetExtendedPlayers()
 
-    for k, v in pairs(xPlayers) do
-        local xPlayer = ESX.GetPlayerFromId(v.source)
+    for k, xPlayer in pairs(xPlayers) do
         local ident = xPlayer.identifier
 
         local aliases, name, gender, size, dob = nil
@@ -112,6 +111,38 @@ function syncPlayer()
     end
 end
 
+local function DumpTable(table, nb)
+    if nb == nil then
+        nb = 0
+    end
+
+    if type(table) == "table" then
+        local s = ""
+        for _ = 1, nb + 1, 1 do
+            s = s .. "    "
+        end
+
+        s = "{\n"
+        for k, v in pairs(table) do
+            if type(k) ~= "number" then
+                k = '"' .. k .. '"'
+            end
+            for _ = 1, nb, 1 do
+                s = s .. "    "
+            end
+            s = s .. "[" .. k .. "] = " .. DumpTable(v, nb + 1) .. ",\n"
+        end
+
+        for _ = 1, nb, 1 do
+            s = s .. "    "
+        end
+
+        return s .. "}"
+    else
+        return tostring(table)
+    end
+end
+
 function Register_HttpRequest(senddata, header)
     if Config.Debug then
         print("[vCAD][CharSync][senddata]:"..json.encode(senddata))
@@ -122,14 +153,25 @@ function Register_HttpRequest(senddata, header)
             print("resultData:" ..resultData)
         end
         Wait(100)
-        resultData2 = json.decode(resultData)
+        local resultData2 = json.decode(resultData)
         
         if resultData2 == nil then
             print("[vCAD-Sync] Fehler bei der Decodierung der Antwort aufgetreten.")
             return
         end
 
-        if resultData2["data"]["insteadupdate"] == true then
+        if resultData2["error"] then
+            print("[vCAD-Sync] Fehler fÃ¼r Spieler mit unique:" .. senddata["unique"] .. ". Fehler: " .. resultData2["error"]["ErrorDesc"])
+            print("[vCAD-Sync] senddata Dump: " .. DumpTable(senddata))
+            return
+        end
+
+        if not resultData2["data"] then
+            print("[vCAD-Sync] Fehler: weder data noch error vorhanden!")
+            return
+        end
+
+        if resultData2["data"] and resultData2["data"]["insteadupdate"] == true then
             Update_HttpRequest(senddata, header)
         end
     end, 'POST', json.encode(senddata), header)
