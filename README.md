@@ -2,7 +2,7 @@
 
 ### Dieses Script kann die Struktur eurer "users" Tabelle verändern!!!
 
-# ESX
+# ESX-Legacy mysql-async
 
 Die ESX-Version ist nur mit dem verbreiteten ESX-Legacy framework kompatibel.
 
