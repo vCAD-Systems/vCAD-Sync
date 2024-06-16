@@ -11,7 +11,7 @@ Die ESX-Version ist nur mit dem verbreiteten ESX-Legacy framework kompatibel.
 
 Füge die Resource einfach in euren Resourcen Ordner ein.
 Denke daran, es in der server.cfg einzutragen.
-Gehe dann auf [vCAD](https://acp.li/ucp/api.php) und Aktiviere dein API Key.
+Gehe dann auf [vCAD](https://acp.li/ucp/api) und Aktiviere dein API Key.
 Diesen Key Kopierst du dir und gehst dann in die config/config.lua und fügst den Key unter Config.ApiKey ein.
 
 Es ist Automatisch eingestellt das die User die auf dem Server sind Gesynct werden, ohne Handynummer.
