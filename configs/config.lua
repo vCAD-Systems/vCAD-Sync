@@ -95,6 +95,7 @@ Config.Command = "vCAD-Car" -- Ändern Sie den Befehl nach Belieben
 --[[
     User rechte für den Command
     Trage hier die User ein die Rechte haben deine Config Fahrzeuge hinzuzufügen.
+    Der Identifier License (zum Beispiel: "license:XYXYXYXYXYXYXYXY") ohne das license: am Anfang in den Anführungsstrichen einfügen
 ]]
 Config.Admins = {
     {
